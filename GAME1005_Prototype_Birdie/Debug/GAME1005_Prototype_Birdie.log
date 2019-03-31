@@ -1,0 +1,6 @@
+﻿  Engine.cpp
+c:\users\marlon\documents\visual studio 2017\projects\game1005_prototype_birdie\game1005_prototype_birdie\engine.cpp(92): warning C4060: switch statement contains no 'case' or 'default' labels
+c:\users\marlon\documents\visual studio 2017\projects\game1005_prototype_birdie\game1005_prototype_birdie\engine.cpp(98): warning C4060: switch statement contains no 'case' or 'default' labels
+  Main.cpp
+  Generating Code...
+  GAME1005_Prototype_Birdie.vcxproj -> C:\Users\Marlon\Documents\Visual Studio 2017\Projects\GAME1005_Prototype_Birdie\Debug\GAME1005_Prototype_Birdie.exe
