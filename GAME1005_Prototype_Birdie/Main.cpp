@@ -5,6 +5,7 @@ int main(int argc, char*args[])
 {
 	Engine game;
 	BACKGROUND bg;
+	Player p;
 	game.init("Birdie", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, wwidth, wheight, 0);
 
 	while (game.running())
@@ -12,8 +13,8 @@ int main(int argc, char*args[])
 		game.handleEvents();
 		if (game.tick())
 		{
-			game.update();
-			game.render(bg);
+			game.update(p);
+			game.render(bg,p);
 		}
 	}
 	game.clean();

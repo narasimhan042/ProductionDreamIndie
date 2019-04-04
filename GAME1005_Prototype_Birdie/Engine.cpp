@@ -18,6 +18,8 @@ bool Engine::init(const char*title, int xpos, int ypos, int width, int height, i
 				IMG_Init(IMG_INIT_PNG);
 				m_pBackgroundSurface = IMG_Load("Birdie_Background.png");
 				m_pBackgroundTexture = SDL_CreateTextureFromSurface(m_pRenderer, m_pBackgroundSurface);
+				m_pBirdSurface = IMG_Load("Bird.png");
+				m_pBirdTexture = SDL_CreateTextureFromSurface(m_pRenderer, m_pBirdSurface);
 			}
 			else
 			{
@@ -64,14 +66,34 @@ bool Engine::tick()
 	else m_bGotTick = false;
 	return false;
 }
-void Engine::update()
+void Engine::update(Player &p)
 {
-
+	if (m_bUp == true && p.m_rDst.y > 0)
+	{
+		p.movey(-1);
+	}
+	if (m_bDown == true && p.m_rDst.y < 768 - 85)
+	{
+		p.movey(1);
+	}
+	if (m_bLeft == true && p.m_rDst.x > 0)
+	{
+		p.movex(-1);
+	}
+	if (m_bRight == true && p.m_rDst.x < 1024 - 98)
+	{
+		p.movex(1);
+	}
+	if (m_bUp || m_bDown || m_bLeft || m_bRight)
+	{
+		p.animation();
+	}
 }
-void Engine::render(BACKGROUND &bg)
+void Engine::render(BACKGROUND &bg, Player &p)
 {
 	SDL_RenderClear(m_pRenderer);
 	SDL_RenderCopy(m_pRenderer, m_pBackgroundTexture, bg.getSource(), bg.getDes());
+	SDL_RenderCopy(m_pRenderer, m_pBirdTexture, p.getSource(), p.getDes());
 	//SDL_SetRenderDrawColor(m_pRenderer,0,255,0,255);
 	SDL_RenderPresent(m_pRenderer);
 }
@@ -88,12 +110,56 @@ void Engine::handleEvents()
 		case SDL_KEYDOWN:
 			switch (event.key.keysym.sym)
 			{
+			case'w':
+			case 'W':
+				if (!m_bUp)
+				{
+					m_bUp = true;
+				}
+				break;
+			case'a':
+			case 'A':
+				if (!m_bLeft)
+				{
+					m_bLeft = true;
+				}
+				break;
+			case's':
+			case 'S':
+				if (!m_bDown)
+				{
+					m_bDown = true;
+				}
+				break;
+			case'd':
+			case 'D':
+				if (!m_bRight)
+				{
+					m_bRight = true;
+				}
+				break;
 
 			}
 			break;
 		case SDL_KEYUP:
 			switch (event.key.keysym.sym)
 			{
+			case'w':
+			case 'W':
+				m_bUp = false;
+				break;
+			case'a':
+			case 'A':
+				m_bLeft = false;
+				break;
+			case's':
+			case 'S':
+				m_bDown = false;
+				break;
+			case'd':
+			case 'D':
+				m_bRight = false;
+				break;
 
 			}
 			break;
